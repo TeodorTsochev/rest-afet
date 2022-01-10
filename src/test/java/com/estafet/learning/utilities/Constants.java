@@ -5,6 +5,8 @@ package com.estafet.learning.utilities;
  */
 public class Constants {
 
-    public static final String URL = "https://api.binance.com";
+    public static final String API_RESPONSE_FIELD = "Response";
+
+    public static final String API_ERROR_FIELD = "Error";
 
 }

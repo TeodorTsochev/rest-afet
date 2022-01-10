@@ -44,3 +44,4 @@ out/
 *.ipr
 *.iws
 log/
+results/
