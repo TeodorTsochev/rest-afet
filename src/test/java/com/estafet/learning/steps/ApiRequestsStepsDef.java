@@ -17,7 +17,7 @@ public class ApiRequestsStepsDef {
     private static String requestUrl;
     private static Response response;
 
-    @Given("^The API address is set to (.*)$")
+    @Given("^The API request address is set to (.*)$")
     public void apiUrlIsSet(String url) {
         requestUrl = url;
     }

@@ -10,6 +10,5 @@ public class JUnitLauncher {
         } else {
             System.out.println("The Following parameters were passed >>> " + Arrays.toString(args));
         }
-
     }
 }

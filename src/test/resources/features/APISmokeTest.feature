@@ -1,7 +1,7 @@
 Feature: Smoke test "OMDB" API
 
   Scenario Outline: Smoke test basic API requests using valid/invalid API keys
-    Given The API address is set to <URL>
+    Given The API request address is set to <URL>
     And Assign API key request parameter <api_key_parameter> with value <key>
     When We make GET request to the API
     Then The following is returned: response '<response>', message '<message>' and response code '<code>' is returned

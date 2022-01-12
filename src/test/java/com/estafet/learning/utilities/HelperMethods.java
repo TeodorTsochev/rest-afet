@@ -1,8 +1,13 @@
 package com.estafet.learning.utilities;
 
 import io.restassured.response.Response;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.Statement;
 import java.util.Map;
 import java.util.Properties;
 
@@ -12,6 +17,8 @@ import static io.restassured.RestAssured.given;
  * Collection of frequently used methods
  */
 public class HelperMethods {
+
+    private static final Logger LOGGER = LogManager.getLogger(HelperMethods.class);
 
     /**
      * Method checking the expected request status code - no parameters
@@ -46,7 +53,7 @@ public class HelperMethods {
     }
 
     /**
-     * Established a Returns the result set of a DB query
+     * Establish a connection to DB and return the result set of a DB query
      *
      * @param dbUrl               - the exact url to the DB (e.g. "jdbc:postgresql://localhost:5432/postgres";)
      * @param dbQuery             - exact query which needs to be executed
@@ -66,16 +73,49 @@ public class HelperMethods {
             //      load any JDBC drivers prior to version 4.0.
             Class.forName("org.postgresql.Driver");
 
-            System.out.println("Connected to PostgreSQL database!");
+            LOGGER.info("Successfully connected to PostgreSQL database!");
 
             Statement statement = connection.createStatement();
             resultSet = statement.executeQuery(dbQuery);
 
-        } catch (SQLException | ClassNotFoundException e) {
-            System.out.println("Connection failure.");
-            e.printStackTrace();
+        } catch (Exception e) {
+            LOGGER.error(Constants.CONNECTION_ERROR_MESSAGE, e);
         }
 
         return resultSet;
+    }
+
+    /**
+     * Establish a connection to DB and return the result set of a DB query
+     *
+     * @param dbUrl               - the exact url to the DB (e.g. "jdbc:postgresql://localhost:5432/postgres";)
+     * @param dbRequestProperties - connection required properties like username, password, etc.
+     * @return - true/false if connection is established
+     */
+    public static boolean isConnectionSuccessful(String dbUrl, Properties dbRequestProperties) {
+        try (Connection connection = DriverManager.getConnection(dbUrl, dbRequestProperties)) {
+            // When this class first attempts to establish a connection,
+            //      it automatically loads any JDBC 4.0 drivers found within
+            //      the class path. Note that your application must manually
+            //      load any JDBC drivers prior to version 4.0.
+            Class.forName("org.postgresql.Driver");
+
+            LOGGER.info("Successfully connected to PostgreSQL database!");
+
+            return true;
+        } catch (Exception e) {
+            LOGGER.error(Constants.CONNECTION_ERROR_MESSAGE, e);
+            return false;
+        }
+    }
+
+    /**
+     * Boolean checker whether a provided string value is either null or empty
+     *
+     * @param str - string value provided
+     * @return - true / false
+     */
+    public static boolean isNullOrEmpty(String str) {
+        return str == null || str.isEmpty();
     }
 }
