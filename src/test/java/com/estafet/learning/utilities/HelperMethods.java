@@ -104,7 +104,7 @@ public class HelperMethods {
 
             return true;
         } catch (Exception e) {
-            LOGGER.error(Constants.CONNECTION_ERROR_MESSAGE, e);
+            LOGGER.error("Connection refused, using illegitimate credentials");
             return false;
         }
     }
