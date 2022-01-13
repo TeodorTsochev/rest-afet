@@ -4,7 +4,7 @@ Feature: Smoke test "OMDB" API
     Given The API request address is set to <URL>
     And Assign API key request parameter <api_key_parameter> with value <key>
     When We make GET request to the API
-    Then The following is returned: response '<response>', message '<message>' and response code '<code>' is returned
+    Then The following is returned: response '<response>', message '<message>' and response code '<code>'
     Examples:
       | URL                      | api_key_parameter | key      | response | message              | code |
       | https://www.omdbapi.com/ | apikey            | 9f0bd5e3 | False    | Incorrect IMDb ID.   | 200  |

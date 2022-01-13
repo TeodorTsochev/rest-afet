@@ -66,18 +66,11 @@ public class HelperMethods {
         ResultSet resultSet = null;
 
         try (Connection connection = DriverManager.getConnection(dbUrl, dbRequestProperties)) {
-
-            // When this class first attempts to establish a connection,
-            //      it automatically loads any JDBC 4.0 drivers found within
-            //      the class path. Note that your application must manually
-            //      load any JDBC drivers prior to version 4.0.
-            Class.forName("org.postgresql.Driver");
-
-            LOGGER.info("Successfully connected to PostgreSQL database!");
+            // Load postgre db driver
+            Class.forName(Constants.POSTGRE_DRIVER_PACKAGE);
 
             Statement statement = connection.createStatement();
             resultSet = statement.executeQuery(dbQuery);
-
         } catch (Exception e) {
             LOGGER.error(Constants.CONNECTION_ERROR_MESSAGE, e);
         }
@@ -94,17 +87,14 @@ public class HelperMethods {
      */
     public static boolean isConnectionSuccessful(String dbUrl, Properties dbRequestProperties) {
         try (Connection connection = DriverManager.getConnection(dbUrl, dbRequestProperties)) {
-            // When this class first attempts to establish a connection,
-            //      it automatically loads any JDBC 4.0 drivers found within
-            //      the class path. Note that your application must manually
-            //      load any JDBC drivers prior to version 4.0.
-            Class.forName("org.postgresql.Driver");
-
-            LOGGER.info("Successfully connected to PostgreSQL database!");
-
+            // Load postgre db driver
+            Class.forName(Constants.POSTGRE_DRIVER_PACKAGE);
+            
             return true;
         } catch (Exception e) {
-            LOGGER.error("Connection refused, using illegitimate credentials");
+            LOGGER.error("Connection refused using illegitimate credentials (user={} / pass={})",
+                    dbRequestProperties.getProperty(Constants.USERNAME_PROPERTY),
+                    dbRequestProperties.getProperty(Constants.PASSWORD_PROPERTY));
             return false;
         }
     }

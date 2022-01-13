@@ -33,8 +33,8 @@ public class DBRequestsStepsDef {
 
     @Given("^The username and password are set to (.*) and (.*)$")
     public void setUsernameAndPass(String username, String password) {
-        requestProperties.setProperty("user", username);
-        requestProperties.setProperty("password", password);
+        requestProperties.setProperty(Constants.USERNAME_PROPERTY, username);
+        requestProperties.setProperty(Constants.PASSWORD_PROPERTY, password);
     }
 
     @Given("^The table of interest is (.*)")

@@ -18,4 +18,10 @@ public class Constants {
     public static final String DEFAULT_SCHEMA = "public";
 
     public static final String TABLE_CUSTOMERS = "\"Customers\"";
+
+    public static final String POSTGRE_DRIVER_PACKAGE = "org.postgresql.Driver";
+
+    public static final String USERNAME_PROPERTY = "user";
+
+    public static final String PASSWORD_PROPERTY = "password";
 }

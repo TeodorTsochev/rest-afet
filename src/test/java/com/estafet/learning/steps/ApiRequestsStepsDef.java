@@ -32,7 +32,7 @@ public class ApiRequestsStepsDef {
         response = HelperMethods.doGet(params, requestUrl);
     }
 
-    @Then("^The following is returned: response '(.*)', message '(.*)' and response code '(.*)' is returned$")
+    @Then("^The following is returned: response '(.*)', message '(.*)' and response code '(.*)'$")
     public void specificMessageAndCodeIsReturned(String responseMsg, String errorMsg, int responseCode) {
         Assertions.assertEquals(responseCode, response.getStatusCode());
         Assertions.assertEquals(responseMsg, response.jsonPath().get(Constants.API_RESPONSE_FIELD));
